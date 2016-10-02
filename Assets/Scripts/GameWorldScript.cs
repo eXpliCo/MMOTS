@@ -3,12 +3,11 @@ using System.Collections;
 
 public class GameWorldScript : MonoBehaviour {
 
-	public void ToggleButtons(Button[] buttons) 
+	public void ToggleButtons(GameObject buttonGroup) 
 	{
-		for (int i = 0; i < buttons.Length; i++) 
-		{
-			Button but = buttons [i];
-			but.SetActive (but.Active);
-		}
+		
+		bool setStatus = !buttonGroup.activeSelf;
+		buttonGroup.SetActive(setStatus);
 	}
+
 }
