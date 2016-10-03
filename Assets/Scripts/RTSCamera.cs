@@ -45,6 +45,6 @@ public class RTSCamera : MonoBehaviour {
 		move.y = Mathf.Clamp (move.y, yMin, yMax);
 		move.z = Mathf.Clamp (move.z, zMin, zMax);
 		desiredPostion = move;
-		transform.position = Vector3.Lerp(transform.position, desiredPostion, 0.2f);
+		transform.position = Vector3.Lerp(transform.position, desiredPostion, 0.05f);
 	}
 }
