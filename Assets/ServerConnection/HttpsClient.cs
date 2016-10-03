@@ -7,7 +7,6 @@ using System.IO;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-using UnityStandardAssets.CrossPlatformInput;
 using SimpleJSON;
 
 public class HttpsClient : MonoBehaviour {

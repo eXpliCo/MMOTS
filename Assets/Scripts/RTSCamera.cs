@@ -38,7 +38,7 @@ public class RTSCamera : MonoBehaviour {
 			z += speed;
 		}
 
-		y += Input.GetAxis ("Mouse ScrollWheel") * speed * 20;
+		y -= Input.GetAxis ("Mouse ScrollWheel") * speed * 20;
 
 		Vector3 move = new Vector3 (x, y, z) + desiredPostion;
 		move.x = Mathf.Clamp (move.x, xMin, xMax);
