@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using SimpleJSON;
 
@@ -18,9 +19,9 @@ public class ButtonScript : MonoBehaviour {
 	
 	}
     
-    public void RegisterButtonPressed()
+	public void RegisterButtonPressed(InputField email, InputField username, InputField password)
     {
-        JSONNode response = HttpsClient.register("email@email.com", "username", "password");
+		JSONNode response = HttpsClient.register(email.text, username.text, password.text);
         if (response["result"].Equals("true")) 
         {
             authToken = response["authToken"];
@@ -31,9 +32,9 @@ public class ButtonScript : MonoBehaviour {
         }
     }
 
-    public void LoginButtonPressed()
+	public void LoginButtonPressed(InputField email, InputField password)
     {
-        JSONNode response = HttpsClient.login("email@email.com", "password");
+		JSONNode response = HttpsClient.login(email.text, password.text);
         if (response["result"].Equals("true"))
         {
             authToken = response["authToken"];

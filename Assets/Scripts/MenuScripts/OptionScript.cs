@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class OptionScript : MonoBehaviour {
 
+	private const string MAINMENUSCENE = "MainMenu";
+
 	void Update() {
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			SceneManager.LoadScene (0);
+			SceneManager.LoadScene (MAINMENUSCENE);
 		}
 	}
 
 	public void backToMainMenu () {
-		SceneManager.LoadScene (0);
+		SceneManager.LoadScene (MAINMENUSCENE);
 	}
 
 	public void applyOptions(Dropdown dropdownOption) {
-		Screen.SetResolution (800,800,false);
-		SceneManager.LoadScene (0);
-		Debug.Log ("TEST");
+		SceneManager.LoadScene (MAINMENUSCENE);
 		//SceneManager.LoadScene (0);
 	}
 }

@@ -189,7 +189,7 @@ GameObject:
   - 114: {fileID: 477781566}
   - 114: {fileID: 477781565}
   m_Layer: 5
-  m_Name: Quit Button
+  m_Name: Logout Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,8 +211,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 91.5, y: -73.7}
-  m_SizeDelta: {x: 75, y: 38.6}
+  m_AnchoredPosition: {x: 10, y: -61}
+  m_SizeDelta: {x: 116.7, y: 38.6}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &477781565
 MonoBehaviour:
@@ -254,12 +254,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1397725548}
-        m_MethodName: Quit
-        m_Mode: 1
+        m_MethodName: LoadScene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -331,7 +331,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 91.5, y: 92}
+  m_AnchoredPosition: {x: 10, y: 104}
   m_SizeDelta: {x: 269, y: 78}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &640196753
@@ -407,7 +407,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 91.5, y: 33}
+  m_AnchoredPosition: {x: 10, y: 45}
   m_SizeDelta: {x: 75, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &688631305
@@ -455,7 +455,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -780,7 +780,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 91.5, y: -20}
+  m_AnchoredPosition: {x: 10, y: -8}
   m_SizeDelta: {x: 125.899994, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1475439431
@@ -828,7 +828,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -935,7 +935,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Quit
+  m_Text: Logout
 --- !u!222 &1578981616
 CanvasRenderer:
   m_ObjectHideFlags: 0
