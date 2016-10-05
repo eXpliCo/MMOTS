@@ -53,7 +53,7 @@ public class LoginMenu : MonoBehaviour {
 		if (response["result"].AsBool.Equals(true)) 
 		{
 			PlayerPrefs.SetString("authToken", response["authToken"]);
-			SceneManager.LoadScene ("MainMenu");
+			SceneManager.LoadScene ("GameWorld");
 		}
 		else
 		{
@@ -69,7 +69,7 @@ public class LoginMenu : MonoBehaviour {
             this.server = new ServerConnection("malow.mooo.com", 7001);
             this.server.SendMessage("test message");
             PlayerPrefs.SetString("authToken", response["authToken"]);
-			//SceneManager.LoadScene ("MainMenu");
+			//SceneManager.LoadScene ("GameWorld");
         }
 		else
 		{
