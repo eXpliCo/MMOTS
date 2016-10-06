@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class RTSCamera : MonoBehaviour {
-	private const float CAMERA_TRANSITION_SPEED = 3.0f;
+	private const float CAMERA_ROTATION_SPEED = 3.0f;
+	private const float CAMERA_MOVESPEED_SPEED = 0.05f;
 	enum CameraState {Game, Menu};
-
-	public GameObject mainMenuGameObject;
 
 	public float scrollSpeed = 500;
 
@@ -28,39 +27,23 @@ public class RTSCamera : MonoBehaviour {
 		desiredPostion = transform.position;
 
 		defaultRotation = Quaternion.AngleAxis(50, new Vector3(1, 0, 0));
-		Debug.Log (defaultRotation);
 		transform.rotation = defaultRotation;
-
-		showMenu ();
 	}
 
-	private void showMenu() {
+	public void hideGame(Vector3 mainMenuPosition) {
 		cameraState = CameraState.Menu;
-
-		mainMenuGameObject.SetActive (true);
-		mainMenuGameObject.transform.position = transform.position + new Vector3(260, 0, 350);
-
-		cameraDesiredRotation = Quaternion.LookRotation(mainMenuGameObject.transform.position - transform.position);
+		cameraDesiredRotation = Quaternion.LookRotation(mainMenuPosition - transform.position);
 	}
 
-	private void showGame() {
+	public void showGame() {
 		cameraState = CameraState.Game;
-
 		transform.position = new Vector3 (transform.position.x, 350, transform.position.z);
 		desiredPostion = transform.position;
 		cameraDesiredRotation = defaultRotation;
 	}
 
-	private bool cameraAnimationDone() {
-		return (transform.rotation == cameraDesiredRotation);
-	}
-
 	void Update () {
-		if (cameraState == CameraState.Game && cameraAnimationDone()) {
-			if (mainMenuGameObject.activeSelf) {
-				mainMenuGameObject.SetActive (false);
-			}
-
+		if (cameraState == CameraState.Game) {
 			float speed = scrollSpeed * Time.deltaTime;
 			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
 				Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition;
@@ -81,19 +64,10 @@ public class RTSCamera : MonoBehaviour {
 			if (Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.UpArrow)) {
 				z += speed;
 			}
-			if (Input.GetKeyDown (KeyCode.Escape)) {
-				showMenu ();
-			}
 
 			y -= Input.GetAxis ("Mouse ScrollWheel") * speed * 20;
 
 			desiredPostion = new Vector3 (x, y, z) + desiredPostion;
-		} 
-		else if(cameraState == CameraState.Menu) 
-		{
-			if (Input.GetKeyDown (KeyCode.Escape)) {
-				showGame ();
-			}
 		}
 		updateTransform ();
 	}
@@ -107,10 +81,10 @@ public class RTSCamera : MonoBehaviour {
 		desiredPostion.x = Mathf.Clamp (desiredPostion.x, xMin, xMax);
 		desiredPostion.y = Mathf.Clamp (desiredPostion.y, yMin, yMax);
 		desiredPostion.z = Mathf.Clamp (desiredPostion.z, zMin, zMax);
-		transform.position = Vector3.Lerp (transform.position, desiredPostion, 0.05f);
+		transform.position = Vector3.Lerp (transform.position, desiredPostion, CAMERA_MOVESPEED_SPEED);
 	}
 
 	private void updateRotation() {
-		transform.rotation = Quaternion.Slerp (transform.rotation, cameraDesiredRotation, CAMERA_TRANSITION_SPEED * Time.deltaTime);
+		transform.rotation = Quaternion.Slerp (transform.rotation, cameraDesiredRotation, CAMERA_ROTATION_SPEED * Time.deltaTime);
 	}
 }

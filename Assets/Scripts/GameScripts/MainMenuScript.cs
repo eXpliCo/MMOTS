@@ -12,4 +12,13 @@ public class MainMenuScript : MonoBehaviour {
 	public void Logout() {
 		Application.Quit ();
 	}
+
+	public void showMenu(Vector3 cameraPostion) {
+		gameObject.SetActive (true);
+		transform.position = cameraPostion + new Vector3(260, 0, 350);
+	}
+
+	public void hideMenu() {
+		gameObject.SetActive (false);
+	}
 }
