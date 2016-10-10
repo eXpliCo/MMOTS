@@ -4,9 +4,12 @@ using System.Collections;
 public class RTSCamera : MonoBehaviour {
 	private const float CAMERA_ROTATION_SPEED = 3.0f;
 	private const float CAMERA_MOVESPEED_SPEED = 0.05f;
-	enum CameraState {Game, Menu};
+	enum CameraState {Game, Menu, Build};
 
-	public float scrollSpeed = 500;
+
+	private float scrollSpeed = 10.0f;
+
+	public Terrain terrain;
 
 	public float xMin = -2500;
 	public float xMax = 2500;
@@ -42,15 +45,22 @@ public class RTSCamera : MonoBehaviour {
 		cameraDesiredRotation = defaultRotation;
 	}
 
+	public void startBuild() {
+		cameraState = CameraState.Build;
+	}
+
 	void Update () {
 		if (cameraState == CameraState.Game) {
 			float speed = scrollSpeed * Time.deltaTime;
 			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
 				Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition;
+				float cameraHeight = transform.position.y - terrain.SampleHeight (transform.position);
 				transform.Translate (-touchDeltaPosition.x * speed, 0, -touchDeltaPosition.y * speed);
+				transform.position = new Vector3 (transform.position.x, terrain.SampleHeight (transform.position) + cameraHeight, transform.position.z);
+				desiredPostion = transform.position;
 			}
-
-			float x = 0, y = 0, z = 0;
+				
+			/*float x = 0, y = 0, z = 0;
 
 			if (Input.GetKey (KeyCode.A) || Input.GetKey (KeyCode.LeftArrow)) {
 				x -= speed;
@@ -67,10 +77,11 @@ public class RTSCamera : MonoBehaviour {
 
 			y -= Input.GetAxis ("Mouse ScrollWheel") * speed * 20;
 
-			desiredPostion = new Vector3 (x, y, z) + desiredPostion;
+			desiredPostion = new Vector3 (x, y, z) + desiredPostion;*/
 		}
 		updateTransform ();
 	}
+		
 
 	private void updateTransform() {
 		updatePosition ();
