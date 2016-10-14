@@ -23,6 +23,10 @@ public class BuildingMenuScript : MonoBehaviour {
 
 	public void hideBuildingMenu() {
 		buildingMenu.SetActive (false);
+		foreach (var part in buildingHistory) {
+			Destroy (part);
+		}
+		buildingHistory = new List<GameObject> ();
 	}
 
 	public void buildPart() {
@@ -31,6 +35,19 @@ public class BuildingMenuScript : MonoBehaviour {
 		sphere.transform.rotation = cube.transform.rotation;
 		sphere.transform.localScale = new Vector3(50, 50, 50);
 		buildingHistory.Add(sphere);
+	}
+
+	public void undo() {
+		if (buildingHistory.Count > 0) {
+			Destroy (buildingHistory [buildingHistory.Count - 1]);
+			buildingHistory.RemoveAt (buildingHistory.Count - 1);
+		} else {
+			
+		}
+	}
+
+	public void saveRailroad() {
+		buildingHistory = new List<GameObject> ();
 	}
 
 	// Update is called once per frame
