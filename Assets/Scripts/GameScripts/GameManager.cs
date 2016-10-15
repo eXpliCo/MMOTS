@@ -32,14 +32,14 @@ public class GameManager : MonoBehaviour {
 	private void goToMenu () {
 		state = GameState.Menu;
 		gameUi.SetActive (false);
-		mainMenuScript.showMenu (mainCamera.transform.position);
-		mainCameraScript.hideGame (mainMenu.transform.position);
+		mainMenuScript.ShowMenu (mainCamera.transform.position);
+		mainCameraScript.HideGame (mainMenu.transform.position);
 	}
 
 	private void goToGame() {
 		state = GameState.Game;
 		gameUi.SetActive (true);
-		mainMenuScript.hideMenu ();
-		mainCameraScript.showGame ();
+		mainMenuScript.HideMenu ();
+		mainCameraScript.ShowGame ();
 	}
 }

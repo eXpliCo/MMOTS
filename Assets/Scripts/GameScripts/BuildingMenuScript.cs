@@ -16,13 +16,13 @@ public class BuildingMenuScript : MonoBehaviour {
 		buildingMenu.SetActive (false);
 	}
 
-	public void showBuildingMenu() {
+	public void ShowBuildingMenu() {
 		buildingMenu.transform.position = cube.transform.position + new Vector3 (0, 100, 0);
 		buildingMenu.transform.rotation = Camera.main.transform.rotation;
 		buildingMenu.SetActive (true);
 	}
 
-	public void hideBuildingMenu() {
+	public void HideBuildingMenu() {
 		buildingMenu.SetActive (false);
 		foreach (var part in buildingHistory) {
 			Destroy (part);
@@ -30,15 +30,19 @@ public class BuildingMenuScript : MonoBehaviour {
 		buildingHistory = new List<GameObject> ();
 	}
 
-	public void buildPart() {
-		GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
-		sphere.transform.position = cube.transform.position;
-		sphere.transform.rotation = cube.transform.rotation;
-		sphere.transform.localScale = new Vector3(50, 50, 50);
-		buildingHistory.Add(sphere);
+	public void BuildPart() {
+		if (cube.GetComponent<PlaceholderController> ().canBuild) {
+			GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+			sphere.tag = "Placeholder";
+			sphere.AddComponent<Rigidbody> ().isKinematic = true;
+			sphere.transform.position = cube.transform.position;
+			sphere.transform.rotation = cube.transform.rotation;
+			sphere.transform.localScale = new Vector3 (50, 50, 50);
+			buildingHistory.Add (sphere);
+		}
 	}
 
-	public void undo() {
+	public void Undo() {
 		if (buildingHistory.Count > 0) {
 			Destroy (buildingHistory [buildingHistory.Count - 1]);
 			buildingHistory.RemoveAt (buildingHistory.Count - 1);
@@ -47,7 +51,7 @@ public class BuildingMenuScript : MonoBehaviour {
 		}
 	}
 
-	public void saveRailroad() {
+	public void SaveRailroad() {
         var json = new JSONClass();
         json["method"] = "BuildRails";
         var jsonList = new JSONArray();

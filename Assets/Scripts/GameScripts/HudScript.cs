@@ -10,7 +10,7 @@ public class HudScript : MonoBehaviour {
 		builderScript = (BuilderScript) builder.GetComponent<BuilderScript> ();
 	}
 
-	public void pressRailroad() {
-		builderScript.toggleBuilding ();
+	public void PressRailroad() {
+		builderScript.ToggleBuilding ();
 	}
 }
