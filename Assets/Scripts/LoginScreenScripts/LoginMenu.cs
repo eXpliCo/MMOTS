@@ -18,8 +18,6 @@ public class LoginMenu : MonoBehaviour {
 	private Transform cameraTransform;
 	private Transform cameraDesiredLookAt;
     
-    private ServerConnection server;
-
     private void Start()
 	{
 		HttpsClient.base_url = loginServerAddress;
@@ -32,14 +30,6 @@ public class LoginMenu : MonoBehaviour {
 		{
 			cameraTransform.rotation = Quaternion.Slerp (cameraTransform.rotation, cameraDesiredLookAt.rotation, CAMERA_TRANSITION_SPEED * Time.deltaTime);
 		}
-        if(this.server != null)
-        {
-            string msg = server.GetMessage();
-            if (msg != null)
-            {
-                Debug.Log("Received message from server: " + msg);
-            }
-        }
 	}
 
 	public void LookAtMenu(Transform menuTransform)
@@ -62,18 +52,16 @@ public class LoginMenu : MonoBehaviour {
 	}
 
 	public void LoginButtonPressed()
-	{
-		JSONNode response = HttpsClient.login(loginEmail.text, loginPassword.text);
-		if (response["result"].AsBool.Equals(true))
+    {
+        JSONNode response = HttpsClient.login(loginEmail.text, loginPassword.text);
+        if (response["result"].AsBool.Equals(true))
         {
-            this.server = new ServerConnection("malow.mooo.com", 7001);
-            this.server.SendMessage("test message");
-            PlayerPrefs.SetString("authToken", response["authToken"]);
-			//SceneManager.LoadScene ("GameWorld");
+            SocketClient.Init("malow.mooo.com", 7001, loginEmail.text, response["authToken"]);
+            SceneManager.LoadScene("GameWorld");
         }
 		else
 		{
 			Debug.Log(response["error"]);
 		}
-	}
+    }
 }

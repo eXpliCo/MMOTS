@@ -62,7 +62,6 @@ public class HttpsClient : MonoBehaviour {
         using (var reader = new StreamReader(response.GetResponseStream()))
         {
             result = reader.ReadToEnd();
-            Debug.Log(result);
         }
         return JSON.Parse(result);
     }
