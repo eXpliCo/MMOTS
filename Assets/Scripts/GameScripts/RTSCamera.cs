@@ -33,19 +33,19 @@ public class RTSCamera : MonoBehaviour {
 		transform.rotation = defaultRotation;
 	}
 
-	public void hideGame(Vector3 mainMenuPosition) {
+	public void HideGame(Vector3 mainMenuPosition) {
 		cameraState = CameraState.Menu;
 		cameraDesiredRotation = Quaternion.LookRotation(mainMenuPosition - transform.position);
 	}
 
-	public void showGame() {
+	public void ShowGame() {
 		cameraState = CameraState.Game;
 		transform.position = new Vector3 (transform.position.x, 350, transform.position.z);
 		desiredPostion = transform.position;
 		cameraDesiredRotation = defaultRotation;
 	}
 
-	public void startBuild() {
+	public void StartBuild() {
 		cameraState = CameraState.Build;
 	}
 
@@ -93,23 +93,23 @@ public class RTSCamera : MonoBehaviour {
                 }
             }
 		}
-		updateTransform ();
+		UpdateTransform ();
 	}
 		
 
-	private void updateTransform() {
-		updatePosition ();
-		updateRotation ();
+	private void UpdateTransform() {
+		UpdatePosition ();
+		UpdateRotation ();
 	}
 
-	private void updatePosition() {
+	private void UpdatePosition() {
 		desiredPostion.x = Mathf.Clamp (desiredPostion.x, xMin, xMax);
 		desiredPostion.y = Mathf.Clamp (desiredPostion.y, yMin, yMax);
 		desiredPostion.z = Mathf.Clamp (desiredPostion.z, zMin, zMax);
 		transform.position = Vector3.Lerp (transform.position, desiredPostion, CAMERA_MOVESPEED_SPEED);
 	}
 
-	private void updateRotation() {
+	private void UpdateRotation() {
 		transform.rotation = Quaternion.Slerp (transform.rotation, cameraDesiredRotation, CAMERA_ROTATION_SPEED * Time.deltaTime);
 	}
 }
