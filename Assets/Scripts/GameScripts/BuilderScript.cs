@@ -38,23 +38,39 @@ public class BuilderScript : MonoBehaviour {
 
 	private void Update () {
 		if (isBuilding) {
-			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Began) {
-				lastTouchDelta = builderModel.transform.position - getTerrainPos(Input.GetTouch (0).position);
-			}
-			if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
-				builderModel.transform.position = getTerrainPos(Input.GetTouch (0).position) + lastTouchDelta;
-				builderModel.transform.position = new Vector3(builderModel.transform.position.x, terrain.SampleHeight (builderModel.transform.position), builderModel.transform.position.z);
-			}
-			/*if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
-				Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition + currentBuildBlock;
-				touchDeltaPosition.x = Mathf.Clamp (touchDeltaPosition.x, 0, Screen.width);
-				touchDeltaPosition.y = Mathf.Clamp (touchDeltaPosition.y, 0, Screen.height);
-				currentBuildBlock = touchDeltaPosition;
-			}
+            if (SystemInfo.deviceType == DeviceType.Desktop)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    lastTouchDelta = builderModel.transform.position - getTerrainPos(Input.mousePosition);
+                }
+                if (Input.GetMouseButton(0))
+                {
+                    builderModel.transform.position = getTerrainPos(Input.mousePosition) + lastTouchDelta;
+                    builderModel.transform.position = new Vector3(builderModel.transform.position.x, terrain.SampleHeight(builderModel.transform.position), builderModel.transform.position.z);
+                }
+            }
+            else
+            {
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    lastTouchDelta = builderModel.transform.position - getTerrainPos(Input.GetTouch(0).position);
+                }
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+                {
+                    builderModel.transform.position = getTerrainPos(Input.GetTouch(0).position) + lastTouchDelta;
+                    builderModel.transform.position = new Vector3(builderModel.transform.position.x, terrain.SampleHeight(builderModel.transform.position), builderModel.transform.position.z);
+                }
+                /*if (Input.touchCount > 0 && Input.GetTouch (0).phase == TouchPhase.Moved) {
+                    Vector2 touchDeltaPosition = Input.GetTouch (0).deltaPosition + currentBuildBlock;
+                    touchDeltaPosition.x = Mathf.Clamp (touchDeltaPosition.x, 0, Screen.width);
+                    touchDeltaPosition.y = Mathf.Clamp (touchDeltaPosition.y, 0, Screen.height);
+                    currentBuildBlock = touchDeltaPosition;
+                }
 
-			builderModel.transform.position = getTerrainPos(currentBuildBlock);
-			*/
-
+                builderModel.transform.position = getTerrainPos(currentBuildBlock);
+                */
+            }
 		}
 	}
 
