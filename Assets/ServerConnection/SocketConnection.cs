@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SimpleJSON;
 
 public class SocketConnection : Process
 {
-    private NetworkChannel server;
+    public const int ALIVE_CHECK_INTERVAL_MS = 1000;
+    private NetworkChannel channel;
 
     public SocketConnection(string ip, int port)
     {
-        this.server = new NetworkChannel(ip, port);
-        this.server.SetNotifier(this);
-        this.server.Start();
+        this.channel = new NetworkChannel(ip, port);
+        this.channel.SetNotifier(this);
+        this.channel.Start();
     }
 
     public string GetMessage()
@@ -23,23 +25,30 @@ public class SocketConnection : Process
         return null;
     }
 
-    public void SendMessage(string msg)
+    public bool SendMessage(string msg)
     {
-        this.server.SendMessage(msg);
+        return this.channel.SendMessage(msg);
     }
 
     public override void Life()
     {
+        while(this.stayAlive)
+        {
+            var json = new JSONClass();
+            json["method"] = "Ping";
+            this.SendMessage(json.ToString());
+            System.Threading.Thread.Sleep(ALIVE_CHECK_INTERVAL_MS);
+        }
     }
 
     public bool IsAlive()
     {
-        return this.server.GetState() == Process.RUNNING;
+        return this.channel.GetState() != Process.FINISHED;
     }
 
-    public void Quit()
+    public override void CloseSpecific()
     {
-        this.server.Close();
-        this.server.WaitUntillDone();
+        this.channel.Close();
+        this.channel.WaitUntillDone();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class BuildingMenuScript : MonoBehaviour {
 
@@ -47,8 +48,23 @@ public class BuildingMenuScript : MonoBehaviour {
 	}
 
 	public void saveRailroad() {
-		buildingHistory = new List<GameObject> ();
-	}
+        var json = new JSONClass();
+        json["method"] = "BuildRails";
+        var jsonList = new JSONArray();
+        int i = 0;
+        foreach (var part in buildingHistory)
+        {
+            var jsonObject = new JSONClass();
+            jsonObject["x"] = part.gameObject.transform.position.x.ToString();
+            jsonObject["y"] = part.gameObject.transform.position.y.ToString();
+            jsonObject["z"] = part.gameObject.transform.position.z.ToString();
+            jsonList.Add(jsonObject);
+            i++;
+        }
+        json["parts"] = jsonList;
+        SocketClient.SendMessage(json.ToString());
+        //buildingHistory = new List<GameObject>();
+    }
 
 	// Update is called once per frame
 	void Update () {

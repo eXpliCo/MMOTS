@@ -32,7 +32,7 @@ public abstract class Process
 	{
 		state = RUNNING;
 		this.Life();
-		state = FINISHED;
+        state = FINISHED;
 	}
 	
 	public abstract void Life();
@@ -178,7 +178,6 @@ public abstract class Process
 	}
 	
 	public int GetState() { return this.state; }
-	public void SetState(int state) { this.state = state; }
 	
 	public long GetID() { return this.ID; }
 	public long GetNrOfProcs() { return Process.nextPID; }
